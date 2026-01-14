@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.delete-confirmation-container {
+  background-color: #000000 !important;
+  color: white !important;
+  padding: 8px;
+}
+
+h2.mat-dialog-title {
+  color: #ff5252 !important;
+  font-weight: 600;
+  background-color: #000000 !important;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+mat-dialog-content {
+  background-color: #000000 !important;
+  color: white !important;
+  padding: 16px !important;
+}
+
+.warning-icon {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.warning-icon mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: #ff5252 !important;
+}
+
+.confirmation-message {
+  font-size: 18px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: white !important;
+}
+
+.confirmation-message strong {
+  color: #ff9800 !important;
+  font-weight: 600;
+}
+
+.pet-info {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.pet-info p {
+  margin: 8px 0;
+  color: #e0e0e0 !important;
+}
+
+.info-label {
+  color: #29b6f6 !important;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.warning-text {
+  color: #ff5252 !important;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+}
+
+mat-dialog-actions {
+  padding-top: 8px;
+  border-top: 1px solid #333;
+  background-color: #000000 !important;
+}
+
+.cancel-button {
+  margin-right: 8px;
+  color: #e0e0e0 !important;
+}
+
+.confirm-button {
+  font-weight: 500;
+  background-color: #d32f2f !important;
+  color: white !important;
+}

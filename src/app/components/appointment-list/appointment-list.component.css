@@ -1,0 +1,327 @@
+.appointment-list-container {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  /* Melhorando contraste do título */
+  color: #121212;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.title-icon {
+  margin-right: 16px;
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: #00838f; 
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #424242; 
+  font-weight: 500;
+}
+
+.error-message {
+  background-color: #ffcdd2; 
+  margin-bottom: 24px;
+}
+
+.error-message mat-card-content {
+  display: flex;
+  align-items: center;
+  color: #b71c1c;
+  padding: 12px;
+  font-weight: 500;
+}
+
+.error-message mat-icon {
+  margin-right: 12px;
+  color: #b71c1c;
+}
+
+.filter-container {
+  margin-bottom: 24px;
+}
+
+.filter-container mat-form-field {
+  width: 100%;
+}
+
+/* Melhorando contraste dos inputs */
+::ng-deep .filter-container .mat-form-field-label {
+  color: rgba(0, 0, 0, 0.75) !important;
+  font-weight: 500 !important;
+}
+
+::ng-deep .filter-container .mat-form-field-underline {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+::ng-deep .filter-container .mat-form-field-ripple {
+  background-color: #00838f !important;
+}
+
+::ng-deep .filter-container .mat-input-element {
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-weight: 500 !important;
+}
+
+::ng-deep .filter-container .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 32px;
+}
+
+table {
+  width: 100%;
+}
+
+/* Melhoria no contraste das células da tabela */
+::ng-deep .mat-mdc-header-cell {
+  color: #00565e !important; 
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  background-color: #e0f7fa !important; 
+}
+
+::ng-deep .mat-mdc-cell {
+  color: #212121 !important; 
+  font-weight: 500 !important;
+}
+
+.mat-column-actions {
+  width: 120px;
+  text-align: center;
+}
+
+.action-buttons button {
+  margin: 0 4px;
+}
+
+/* Melhorias nos badges de status */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500; 
+  text-align: center;
+  display: inline-block;
+}
+
+.status-scheduled {
+  background-color: #bbdefb;
+  color: #0d47a1; 
+  border: 1px solid #90caf9;
+}
+
+.status-completed {
+  background-color: #c8e6c9;
+  color: #1b5e20; 
+  border: 1px solid #a5d6a7;
+}
+
+.status-canceled {
+  background-color: #ffcdd2;
+  color: #b71c1c; 
+  border: 1px solid #ef9a9a;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 64px 0;
+  color: #424242;
+}
+
+.empty-state mat-icon {
+  font-size: 64px;
+  height: 64px;
+  width: 64px;
+  margin-bottom: 16px;
+  color: #616161; 
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  font-weight: 600; 
+  margin-bottom: 8px;
+  color: #212121; 
+}
+
+.empty-state p {
+  font-size: 16px;
+  color: #424242;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* Melhorando botões de ação */
+::ng-deep .button-container button {
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+::ng-deep .button-container button.mat-primary {
+  background-color: #006064 !important;
+}
+
+/* Adicione este estilo para o botão de completar */
+.complete-button {
+  color: #388e3c !important;
+}
+
+.complete-button:hover {
+  background-color: rgba(56, 142, 60, 0.1) !important;
+}
+
+/* Estilo para os snackbars */
+::ng-deep .success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+::ng-deep .error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mat-mdc-snack-bar-label {
+  padding: 14px 16px;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__actions {
+  padding: 8px;
+}
+
+/* Estilos específicos para os botões de ação */
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-primary {
+  color: #2196f3 !important; /* Azul para o botão de detalhes */
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-accent {
+  color: #ff9800 !important; /* Laranja para o botão de editar */
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.complete-button {
+  color: #388e3c !important; /* Verde para o botão de concluir */
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-warn {
+  color: #f44336 !important; /* Vermelho para o botão de cancelar */
+}
+
+/* Efeitos de hover */
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-primary:hover {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-accent:hover {
+  background-color: rgba(255, 152, 0, 0.1) !important;
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.complete-button:hover {
+  background-color: rgba(56, 142, 60, 0.1) !important;
+}
+
+:host ::ng-deep .action-buttons button.mat-mdc-icon-button.mat-warn:hover {
+  background-color: rgba(244, 67, 54, 0.1) !important;
+}
+
+/* Estilo para os snackbars */
+::ng-deep .success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+::ng-deep .error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mat-mdc-snack-bar-label {
+  padding: 14px 16px;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__actions {
+  padding: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .appointment-list-container {
+    padding: 0 16px;
+    margin: 16px auto;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .title-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Estilos para as badges de origem */
+.origin-badge {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.origin-badge mat-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+}
+
+.origin-automatic {
+  background-color: #e1f5fe;
+  color: #0277bd;
+  border: 1px solid #b3e5fc;
+}
+
+.origin-manual {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+  border: 1px solid #e1bee7;
+}

@@ -1,0 +1,83 @@
+<div class="pet-details-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon class="header-icon">pets</mat-icon>
+    {{ data.pet?.name }}
+  </h2>
+  
+  <mat-dialog-content>
+    <div class="pet-details-content">
+      <!-- Coluna da esquerda com foto -->
+      <div class="left-column">
+        <div class="pet-image-container">
+          <img *ngIf="data.pet?.imageUrl" [src]="data.pet?.imageUrl" alt="Imagem do pet" class="pet-image">
+          <div *ngIf="!data.pet?.imageUrl" class="no-image">
+            <mat-icon>pets</mat-icon>
+            <span>Sem imagem</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Coluna da direita com informações -->
+      <div class="right-column">
+        <!-- Seção de informações básicas -->
+        <div class="info-section">
+          <h3 class="info-subtitle">Informações Básicas</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Nome</div>
+              <div class="info-value">{{ data.pet?.name }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Espécie</div>
+              <div class="info-value">{{ data.pet?.species === 'cat' ? 'Gato' : data.pet?.species === 'dog' ? 'Cachorro' : data.pet?.species }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Raça</div>
+              <div class="info-value">{{ data.pet?.breed }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Idade</div>
+              <div class="info-value">{{ data.pet?.age }} anos</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Sexo</div>
+              <div class="info-value">{{ data.pet?.sex === 'male' ? 'Macho' : 'Fêmea' }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Peso</div>
+              <div class="info-value">{{ data.pet?.weight }} kg</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Seção de informações do tutor -->
+        <div class="info-section">
+          <h3 class="info-subtitle">Dados do Tutor</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Nome</div>
+              <div class="info-value">{{ data.pet?.ownerName }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">Email</div>
+              <div class="info-value">{{ data.pet?.ownerEmail }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+      Fechar
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,198 @@
+/* Container principal do diálogo */
+.pet-success-dialog {
+  max-width: 400px;
+  color: #ffffff; /* Texto branco */
+  background-color: #121212; /* Fundo preto */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Cabeçalho com fundo preto */
+.success-header {
+  background-color: #121212; /* Fundo preto */
+  color: #00acc1; /* Ciano */
+  text-align: center;
+  padding: 20px 16px;
+  position: relative;
+}
+
+/* Ícone de sucesso */
+.success-icon {
+  width: 52px;
+  height: 52px;
+  background-color: #121212; /* Fundo preto */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.success-icon mat-icon {
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+  color: #00acc1; /* Ciano */
+}
+
+/* Título do diálogo */
+h2.mat-dialog-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #00acc1; /* Ciano */
+}
+
+/* Conteúdo */
+mat-dialog-content {
+  padding: 16px !important;
+}
+
+/* Informações do pet */
+.pet-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  background-color: #1e1e1e; /* Fundo cinza escuro */
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* Avatar do pet */
+.pet-avatar {
+  background-color: #00acc1; /* Ciano */
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: #121212; /* Preto */
+  border: 3px solid #00acc1; /* Ciano */
+}
+
+.pet-avatar mat-icon {
+  font-size: 24px;
+  height: 24px;
+  width: 24px;
+}
+
+/* Detalhes do pet */
+.pet-details {
+  flex: 1;
+}
+
+.pet-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff; /* Texto branco */
+  margin-bottom: 2px;
+}
+
+.pet-breed {
+  font-size: 14px;
+  color: #b0bec5; /* Cinza claro */
+  margin-bottom: 2px;
+}
+
+.pet-owner {
+  font-size: 12px;
+  color: #78909c; /* Cinza médio */
+}
+
+/* Mensagem de sucesso */
+.success-message {
+  text-align: center;
+  font-size: 14px;
+  color: #b0bec5; /* Cinza claro */
+  margin: 8px 0 16px;
+}
+
+/* Botões - Layout vertical mais compacto */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Estilização dos botões */
+.action-buttons button {
+  height: 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Cores dos botões */
+.action-buttons button:nth-child(1) {  /* Ver Detalhes */
+  background-color: #00acc1; /* Ciano */
+  color: white;
+}
+
+.action-buttons button:nth-child(2) {  /* Lista */
+  background-color: #1e1e1e; /* Fundo cinza escuro */
+  color: #ffffff; /* Texto branco */
+}
+
+.action-buttons button:nth-child(3) {  /* Novo */
+  background-color: #00acc1; /* Ciano */
+  color: white;
+}
+
+.action-buttons button mat-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Efeito hover nos botões */
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Botão de fechar */
+.close-button {
+  margin-top: 8px;
+  color: #b0bec5; /* Cinza claro */
+  font-size: 13px;
+}
+
+/* Ações do diálogo */
+mat-dialog-actions {
+  padding: 0 16px 16px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsividade */
+@media (min-width: 400px) {
+  .action-buttons button {
+    padding: 0 16px;
+  }
+
+  .success-header {
+    padding: 24px 16px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .success-icon mat-icon {
+    font-size: 36px;
+    height: 36px;
+    width: 36px;
+  }
+}

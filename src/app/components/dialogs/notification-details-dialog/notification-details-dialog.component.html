@@ -1,0 +1,88 @@
+<div class="notification-details-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon class="header-icon">email</mat-icon>
+    Detalhes da Notificação
+  </h2>
+
+  <mat-dialog-content>
+    <!-- Status badge -->
+    <div class="status-section">
+      <div [class]="'status-badge ' + getStatusClass(data.notification.status)">
+        <mat-icon>{{ getStatusIcon(data.notification.status) }}</mat-icon>
+        {{ getStatusLabel(data.notification.status) }}
+      </div>
+      <div class="sent-date">
+        <mat-icon>schedule</mat-icon>
+        {{ formattedDate }}
+      </div>
+      <div *ngIf="!data.notification.isRead" class="unread-badge">
+        <mat-icon>mark_email_unread</mat-icon>
+        Não lida
+      </div>
+    </div>
+
+    <!-- Subject -->
+    <div class="notification-section">
+      <h3 class="section-title">Assunto</h3>
+      <div class="section-content subject">
+        {{ data.notification.subject }}
+      </div>
+    </div>
+
+    <!-- Pet Details (if available) -->
+    <div class="notification-section" *ngIf="data.notification.petName">
+      <h3 class="section-title">Pet</h3>
+      <div class="section-content">
+        <div class="pet-info">
+          <mat-icon>pets</mat-icon>
+          {{ data.notification.petName }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Recipient -->
+    <div class="notification-section">
+      <h3 class="section-title">Destinatário</h3>
+      <div class="section-content recipient">
+        <mat-icon>person</mat-icon>
+        {{ data.notification.recipientEmail }}
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="notification-section">
+      <h3 class="section-title">Conteúdo</h3>
+      <div class="section-content content">
+        <pre>{{ data.notification.content }}</pre>
+      </div>
+    </div>
+
+    <!-- Error message (if failed) -->
+    <div class="notification-section error-section" *ngIf="data.notification.status === 'failed' && data.notification.errorMessage">
+      <h3 class="section-title error-title">Detalhes do Erro</h3>
+      <div class="section-content error-message">
+        {{ data.notification.errorMessage }}
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button *ngIf="data.notification.status === 'failed'" 
+            mat-raised-button 
+            color="warn" 
+            (click)="resendNotification()">
+      <mat-icon>send</mat-icon>
+      Tentar reenviar
+    </button>
+    
+    <button *ngIf="!data.notification.isRead" 
+            mat-raised-button 
+            color="accent" 
+            (click)="markAsRead()">
+      <mat-icon>mark_email_read</mat-icon>
+      Marcar como lida
+    </button>
+    
+    <button mat-button (click)="close()">Fechar</button>
+  </mat-dialog-actions>
+</div>

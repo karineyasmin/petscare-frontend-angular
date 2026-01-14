@@ -1,0 +1,152 @@
+.container {
+  padding: 24px;
+  background-color: white;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 24px auto;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+/* Estilos da tabela */
+.table-container {
+  margin-bottom: 24px;
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.full-width-table {
+  width: 100%;
+  background-color: white !important;
+}
+
+/* Estilos das linhas e células */
+.mat-mdc-row:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.mat-mdc-row:hover {
+  background-color: #e8f4f8 !important;
+}
+
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: #00838f;
+  background-color: #ecfbfc;
+  padding: 16px 8px !important;
+}
+
+.mat-mdc-cell {
+  padding: 12px 8px !important;
+  color: #333;
+}
+
+/* Estilos para botões de ação */
+.action-buttons {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Estilos para botões de ação */
+.action-buttons {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Adicione mais espaço entre os botões de ação e melhore a visualização */
+.action-buttons button {
+  margin: 0 4px;
+  transform: scale(1.2); /* Aumenta ligeiramente o tamanho dos botões */
+}
+
+/* Estilizar o botão de visualização */
+.action-buttons button.view-button {
+  color: #0288d1 !important; /* Azul mais vibrante */
+}
+.action-buttons button.view-button:hover {
+  background-color: rgba(2, 136, 209, 0.1) !important;
+}
+
+/* Estilizar o botão de edição */
+.action-buttons button.edit-button {
+  color: #ffa000 !important; /* Amarelo âmbar */
+}
+.action-buttons button.edit-button:hover {
+  background-color: rgba(255, 160, 0, 0.1) !important;
+}
+
+/* Estilizar o botão de exclusão */
+.action-buttons button.delete-button {
+  color: #d32f2f !important; /* Vermelho mais vibrante */
+}
+.action-buttons button.delete-button:hover {
+  background-color: rgba(211, 47, 47, 0.1) !important;
+}
+
+/* Estilos para o diálogo de detalhes */
+.pet-details-dialog {
+  max-width: 600px;
+  padding: 16px;
+}
+
+.pet-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .pet-details-content {
+    flex-direction: row;
+  }
+}
+
+.pet-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.pet-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.no-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.pet-info {
+  flex: 2;
+}
+
+/* Botão de voltar */
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.origin-automatic {
+  background-color: #e1f5fe;
+  color: #0277bd;
+  border: 1px solid #b3e5fc;
+}
+
+.origin-manual {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+  border: 1px solid #e1bee7;
+}

@@ -1,0 +1,301 @@
+/* Container principal */
+.notification-list-container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px;
+  background-color: #ffffff;
+}
+
+/* Cabeçalho da página */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  color: #000000;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
+  color: #00acc1;
+}
+
+.unread-badge {
+  margin-left: 8px;
+}
+
+/* Notificações não lidas */
+.unread-row {
+  background-color: rgba(0, 172, 193, 0.1) !important;
+}
+
+.unread-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  margin-left: 6px;
+  color: #e91e63;
+}
+
+/* Container da tabela */
+.notification-table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.notification-table {
+  width: 100%;
+}
+
+/* Estilos para cabeçalho da tabela */
+.notification-table th {
+  background-color: #e0f7fa;
+  color: #000000;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 12px 16px;
+}
+
+.notification-table tr.mat-mdc-row {
+  height: 64px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notification-table tr.mat-mdc-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* Células da tabela com texto preto */
+.notification-table td.mat-mdc-cell {
+  color: #000000;
+  font-weight: 500;
+  padding: 12px 16px;
+}
+
+.subject-cell {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.subject-cell.unread {
+  font-weight: 700;
+  color: #000000;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Cores dos ícones de status - bem definidas e contrastantes */
+.status-sent {
+  color: #2e7d32;
+}
+
+.status-pending {
+  color: #e65100;
+}
+
+.status-failed {
+  color: #c62828;
+}
+
+/* Cell content with icon */
+.cell-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Loading and empty states */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Mensagem de erro */
+.error-message {
+  background-color: #ffebef;
+  border-left: 4px solid #d32f2f;
+  margin-bottom: 24px;
+}
+
+.error-message mat-card-content {
+  display: flex;
+  align-items: center;
+  color: #b71c1c;
+  padding: 16px;
+  font-weight: 500;
+}
+
+.error-message mat-icon {
+  margin-right: 16px;
+  color: #b71c1c;
+}
+
+/* Estado vazio */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  font-size: 64px;
+  height: 64px;
+  width: 64px;
+  margin-bottom: 16px;
+  color: #607d8b;
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #000000;
+}
+
+.empty-state p {
+  color: #333333;
+  max-width: 400px;
+}
+
+/* Botões na tabela */
+.action-button {
+  color: #00838f;
+}
+
+.action-button.warn {
+  color: #b71c1c;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .notification-list-container {
+    padding: 0 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .subject-cell {
+    max-width: 150px;
+  }
+
+  /* Hide email column on mobile */
+  .notification-table .mat-column-recipientEmail {
+    display: none;
+  }
+
+  /* Make action buttons smaller on mobile */
+  .action-buttons button {
+    transform: scale(0.8);
+  }
+}
+
+/* Aplicando estilos aos componentes do Angular Material */
+/* Cabeçalhos da tabela */
+::ng-deep .notification-table th.mat-mdc-header-cell {
+  background-color: #e0f7fa !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Texto nas células da tabela */
+::ng-deep .notification-table td.mat-mdc-cell {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Efeito hover nas linhas */
+::ng-deep .notification-table tr.mat-mdc-row:hover {
+  background-color: #f5f5f5 !important;
+}
+
+/* ÍCONES DE STATUS - COLORIDOS de acordo com o tipo */
+::ng-deep .notification-table mat-icon.status-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Enviado - verde */
+::ng-deep .notification-table mat-icon.status-sent,
+::ng-deep .notification-table .status-sent mat-icon {
+  color: #2e7d32 !important;
+}
+
+/* Pendente - laranja */
+::ng-deep .notification-table mat-icon.status-pending,
+::ng-deep .notification-table .status-pending mat-icon {
+  color: #e65100 !important;
+}
+
+/* Falha - vermelho */
+::ng-deep .notification-table mat-icon.status-failed,
+::ng-deep .notification-table .status-failed mat-icon {
+  color: #c62828 !important;
+}
+
+/* Ícones nos botões de ação */
+::ng-deep .action-buttons button.mat-mdc-icon-button mat-icon {
+  color: #00838f !important;
+}
+
+::ng-deep .action-buttons button.warn mat-icon {
+  color: #b71c1c !important;
+}
+
+/* Estilo para badge não lido */
+::ng-deep .unread-badge mat-icon {
+  color: #e91e63 !important;
+}
+
+/* Estilo para ícones gerais na tabela */
+::ng-deep .notification-table .cell-content mat-icon:not(.status-sent):not(.status-pending):not(.status-failed) {
+  color: #424242 !important;
+}

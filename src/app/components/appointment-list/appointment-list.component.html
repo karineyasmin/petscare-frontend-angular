@@ -1,0 +1,125 @@
+<div class="appointment-list-container">
+  <h2 class="page-title">
+    <mat-icon class="title-icon">event_note</mat-icon>
+    <span>Lista de Agendamentos</span>
+  </h2>
+
+  <!-- Indicador de carregamento -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Carregando agendamentos...</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <mat-card *ngIf="error" class="error-message">
+    <mat-card-content>
+      <mat-icon color="warn">error</mat-icon>
+      {{ error }}
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Campo de filtro -->
+  <div class="filter-container" *ngIf="!loading && !error && appointments.length > 0">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar</mat-label>
+      <input matInput [(ngModel)]="filterText" (keyup)="applyFilter()" placeholder="Buscar por pet, tipo de serviço ou data">
+      <button *ngIf="filterText" matSuffix mat-icon-button aria-label="Limpar" (click)="filterText=''; applyFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <!-- Tabela de agendamentos -->
+  <div class="table-container" *ngIf="!loading && !error && filteredAppointments.length > 0">
+    <table mat-table [dataSource]="filteredAppointments" class="mat-elevation-z8">
+      <!-- Data Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let appointment">{{ appointment.date }}</td>
+      </ng-container>
+
+      <!-- Hora Column -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef>Hora</th>
+        <td mat-cell *matCellDef="let appointment">{{ appointment.time }}</td>
+      </ng-container>
+
+      <!-- Pet Column -->
+      <ng-container matColumnDef="petName">
+        <th mat-header-cell *matHeaderCellDef>Pet</th>
+        <td mat-cell *matCellDef="let appointment">{{ appointment.petName }}</td>
+      </ng-container>
+
+      <!-- Serviço Column -->
+      <ng-container matColumnDef="serviceType">
+        <th mat-header-cell *matHeaderCellDef>Serviço</th>
+        <td mat-cell *matCellDef="let appointment">{{ appointment.serviceType }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let appointment">
+          <span [class]="'status-badge ' + getStatusClass(appointment.status)">
+            {{ getStatusLabel(appointment.status) }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="origin">
+        <th mat-header-cell *matHeaderCellDef>Origem</th>
+        <td mat-cell *matCellDef="let appointment">
+          <span class="origin-badge" [ngClass]="{'origin-automatic': appointment.origin === 'automatic', 'origin-manual': appointment.origin === 'manual'}">
+            <mat-icon>{{ getOriginIcon(appointment.origin) }}</mat-icon>
+            {{ getOriginLabel(appointment.origin) }}
+          </span>
+        </td>
+      </ng-container>
+      
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let appointment" class="action-buttons">
+          <button mat-icon-button class="details-button mat-primary" matTooltip="Detalhes" (click)="viewAppointmentDetails(appointment)">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-icon-button class="edit-button mat-accent" matTooltip="Editar" *ngIf="appointment.status.toLowerCase() === 'scheduled'" (click)="editAppointment(appointment)">
+            <mat-icon>edit_calendar</mat-icon>
+          </button>
+          <button mat-icon-button class="complete-button" matTooltip="Concluir" *ngIf="appointment.status.toLowerCase() === 'scheduled'" (click)="completeAppointment(appointment)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button mat-icon-button class="cancel-button mat-warn" matTooltip="Cancelar" *ngIf="appointment.status.toLowerCase() === 'scheduled'" (click)="cancelAppointment(appointment)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <!-- Estado vazio -->
+  <div class="empty-state" *ngIf="!loading && !error && appointments.length === 0">
+    <mat-icon>event_busy</mat-icon>
+    <h3>Nenhum agendamento encontrado</h3>
+    <p>Não existem agendamentos registrados.</p>
+  </div>
+
+  <!-- Sem resultados na busca -->
+  <div class="empty-state" *ngIf="!loading && !error && appointments.length > 0 && filteredAppointments.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <h3>Nenhum resultado encontrado</h3>
+    <p>Tente usar outros termos na busca.</p>
+  </div>
+
+  <!-- Botões de ação -->
+  <div class="button-container">
+    <button mat-raised-button color="primary" routerLink="/appointment-dashboard">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar para Dashboard
+    </button>
+  </div>
+</div>

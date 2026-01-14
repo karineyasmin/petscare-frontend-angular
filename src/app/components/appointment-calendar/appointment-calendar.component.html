@@ -1,0 +1,86 @@
+<div class="calendar-page-container">
+  <mat-card class="calendar-header-card">
+    <mat-card-header>
+      <div mat-card-avatar class="calendar-header-icon">
+        <mat-icon>calendar_month</mat-icon>
+      </div>
+      <mat-card-title>Calendário de Agendamentos</mat-card-title>
+      <mat-card-subtitle>Visualize todos os agendamentos de forma interativa</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <!-- Indicador de carregamento -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Carregando calendário...</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <mat-card *ngIf="error" class="error-message">
+    <mat-card-content>
+      <mat-icon color="warn">error</mat-icon>
+      {{ error }}
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Container do calendário -->
+  <div class="calendar-container" *ngIf="!loading && !error">
+    <mat-card class="calendar-card">
+      <mat-card-content>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Legenda do calendário -->
+    <mat-card class="calendar-legend">
+      <mat-card-header>
+        <mat-card-title>Legenda</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="legend-section">
+          <h3>Status</h3>
+          <div class="legend-items">
+            <div class="legend-item">
+              <div class="legend-color status-scheduled-color"></div>
+              <div class="legend-label">Agendado</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color status-completed-color"></div>
+              <div class="legend-label">Concluído</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color status-canceled-color"></div>
+              <div class="legend-label">Cancelado</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="legend-section">
+          <h3>Origem</h3>
+          <div class="legend-items">
+            <div class="legend-item">
+              <div class="legend-color origin-automatic-color"></div>
+              <div class="legend-label">Automático</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color origin-manual-color"></div>
+              <div class="legend-label">Manual</div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Botões de ação -->
+  <div class="calendar-actions" *ngIf="!loading && !error">
+    <button mat-raised-button color="primary" routerLink="/appointment-dashboard">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard de Agendamentos
+    </button>
+    <button mat-raised-button color="accent" (click)="createNewAppointment()">
+      <mat-icon>add</mat-icon>
+      Novo Agendamento
+    </button>
+  </div>
+</div>

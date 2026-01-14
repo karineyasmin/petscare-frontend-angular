@@ -1,0 +1,29 @@
+<div class="home-container">
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Cuidado e Carinho para seu Pet</h1>
+      <p>Gerencie informações de saúde e bem-estar para seu melhor amigo.</p>
+      <div class="hero-buttons">
+        <a mat-raised-button color="primary" routerLink="/pet-list">
+          <mat-icon>pets</mat-icon>
+          Ver Pets
+        </a>
+        <a mat-raised-button color="accent" routerLink="/breed-search">
+          <mat-icon>search</mat-icon>
+          Buscar Raças
+        </a>
+        <a mat-raised-button color="warn" *ngIf="isAdmin()" routerLink="/pet-registration">
+          <mat-icon>add_circle</mat-icon>
+          Cadastrar Pet
+        </a>
+        <a mat-raised-button color="accent" *ngIf="isAdmin()" routerLink="/notifications">
+          <mat-icon>notifications</mat-icon>
+          Notificações
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pets felizes" />
+    </div>
+  </section>
+</div>

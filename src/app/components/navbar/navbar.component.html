@@ -1,0 +1,58 @@
+<mat-toolbar color="primary" class="main-toolbar">
+  <a mat-button routerLink="/" class="brand">
+    <mat-icon>pets</mat-icon>
+    <span class="brand-name">PetsCare</span>
+  </a>
+  
+  <span class="spacer"></span>
+  
+  <!-- Área esquerda (apenas para usuários logados) -->
+  <ng-container *ngIf="isLoggedIn()">
+    <ng-container *ngIf="isAdmin()">
+      <a mat-button routerLink="/pet-registration" routerLinkActive="active-link">
+        <mat-icon>add_circle</mat-icon> Cadastrar Pet
+      </a>
+      <a mat-button routerLink="/pet-list" routerLinkActive="active-link">
+        <mat-icon>list</mat-icon> Listar Pets
+      </a>
+      <a mat-button routerLink="/appointment-dashboard" routerLinkActive="active-link">
+        <mat-icon>today</mat-icon> Agendamentos
+      </a>
+      <a mat-button routerLink="/appointment-calendar" routerLinkActive="active-link">
+        <mat-icon>calendar_month</mat-icon> Calendário
+      </a>
+      <a mat-button routerLink="/notifications" routerLinkActive="active-link">
+        <mat-icon>notifications</mat-icon> Notificações
+      </a>
+    </ng-container>
+  </ng-container>
+  
+  <!-- Buscar Raças sempre aparece independente de login -->
+  <a mat-button routerLink="/breed-search" routerLinkActive="active-link">
+    <mat-icon>search</mat-icon> Buscar Raças
+  </a>
+  
+  <span class="spacer"></span>
+  
+  <!-- Área direita (login ou menu de usuário) -->
+  <ng-container *ngIf="isLoggedIn(); else loginButton">
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
+      <mat-icon>account_circle</mat-icon>
+      <span>{{ userName }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+  
+  <ng-template #loginButton>
+    <a mat-button routerLink="/login" routerLinkActive="active-link">
+      <mat-icon>login</mat-icon> Login
+    </a>
+  </ng-template>
+</mat-toolbar>

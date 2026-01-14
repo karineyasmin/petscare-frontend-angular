@@ -1,0 +1,206 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+      <mat-icon class="title-icon">event_note</mat-icon>
+      Gerenciamento de Agendamentos
+    </h1>
+    <div class="dashboard-actions">
+      <button mat-raised-button color="primary" (click)="createAppointment()">
+        <mat-icon>add</mat-icon>
+        Novo Agendamento
+      </button>
+      <button mat-raised-button color="accent" routerLink="/appointment-list">
+        <mat-icon>list</mat-icon>
+        Ver Todos
+      </button>
+    </div>
+  </div>
+
+  <!-- Indicador de carregamento -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Carregando agendamentos...</p>
+  </div>
+
+  <!-- Mensagem de erro -->
+  <mat-card *ngIf="error" class="error-message">
+    <mat-card-content>
+      <mat-icon color="warn">error</mat-icon>
+      {{ error }}
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Cartões de métricas -->
+  <div class="metrics-grid" *ngIf="!loading && !error">
+    <mat-card class="metric-card total">
+      <mat-card-content>
+        <div class="metric-value">{{ totalAppointments }}</div>
+        <div class="metric-label">
+          <mat-icon>event</mat-icon>
+          Total de Agendamentos
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card scheduled">
+      <mat-card-content>
+        <div class="metric-value">{{ scheduledAppointments }}</div>
+        <div class="metric-label">
+          <mat-icon>event_available</mat-icon>
+          Agendados
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card completed">
+      <mat-card-content>
+        <div class="metric-value">{{ completedAppointments }}</div>
+        <div class="metric-label">
+          <mat-icon>event_busy</mat-icon>
+          Concluídos
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card canceled">
+      <mat-card-content>
+        <div class="metric-value">{{ canceledAppointments }}</div>
+        <div class="metric-label">
+          <mat-icon>cancel</mat-icon>
+          Cancelados
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Dashboard principal com 3 seções -->
+  <div class="dashboard-grid" *ngIf="!loading && !error">
+    <!-- Agendamentos de hoje -->
+    <mat-card class="dashboard-card today-card">
+      <mat-card-header>
+        <div mat-card-avatar class="header-icon">
+          <mat-icon>today</mat-icon>
+        </div>
+        <mat-card-title>Agendamentos de Hoje</mat-card-title>
+        <mat-card-subtitle>{{ todayAppointments.length }} agendamentos programados</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="appointment-list" *ngIf="todayAppointments.length > 0">
+          <div class="appointment-item" *ngFor="let appointment of todayAppointments" (click)="viewAppointmentDetails(appointment)">
+            <div class="appointment-time">{{ appointment.time }}</div>
+            <div class="appointment-details">
+              <div class="pet-name">{{ appointment.petName }}</div>
+              <div class="service-type">{{ appointment.serviceType }}</div>
+            </div>
+            <div class="appointment-actions">
+              <!-- Botões com classes específicas e estilos melhorados -->
+              <button 
+                mat-raised-button 
+                class="action-button edit-button" 
+                matTooltip="Editar agendamento"
+                (click)="rescheduleAppointment(appointment); $event.stopPropagation()">
+                <mat-icon>edit_calendar</mat-icon>
+              </button>
+              <button 
+                mat-raised-button 
+                class="action-button cancel-button" 
+                matTooltip="Cancelar agendamento"
+                (click)="cancelAppointment(appointment); $event.stopPropagation()">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="empty-list" *ngIf="todayAppointments.length === 0">
+          <mat-icon>event_busy</mat-icon>
+          <p>Sem agendamentos para hoje</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Próximos agendamentos -->
+    <mat-card class="dashboard-card upcoming-card">
+      <mat-card-header>
+        <div mat-card-avatar class="header-icon">
+          <mat-icon>event_note</mat-icon>
+        </div>
+        <mat-card-title>Próximos Agendamentos</mat-card-title>
+        <mat-card-subtitle>Agendamentos futuros</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="appointment-list" *ngIf="upcomingAppointments.length > 0">
+          <div class="appointment-item" *ngFor="let appointment of upcomingAppointments" (click)="viewAppointmentDetails(appointment)">
+            <div class="appointment-date">{{ appointment.formattedDate }}</div>
+            <div class="appointment-details">
+              <div class="pet-name">{{ appointment.petName }}</div>
+              <div class="service-type">{{ appointment.serviceType }} ({{ appointment.time }})</div>
+            </div>
+            <div class="appointment-actions">
+              <!-- Botão com classes específicas e estilo melhorado -->
+              <button 
+                mat-raised-button
+                class="action-button edit-button"
+                matTooltip="Editar agendamento"
+                (click)="rescheduleAppointment(appointment); $event.stopPropagation()">
+                <mat-icon>edit_calendar</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="empty-list" *ngIf="upcomingAppointments.length === 0">
+          <mat-icon>event_available</mat-icon>
+          <p>Nenhum agendamento futuro</p>
+        </div>
+        
+        <div class="view-more-button" *ngIf="upcomingAppointments.length > 0">
+          <button mat-button color="primary" routerLink="/appointment-list">
+            Ver Todos <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Agendamentos passados -->
+    <mat-card class="dashboard-card past-card">
+      <mat-card-header>
+        <div mat-card-avatar class="header-icon">
+          <mat-icon>history</mat-icon>
+        </div>
+        <mat-card-title>Histórico Recente</mat-card-title>
+        <mat-card-subtitle>Agendamentos passados</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="appointment-list" *ngIf="pastAppointments.length > 0">
+          <div class="appointment-item" *ngFor="let appointment of pastAppointments" (click)="viewAppointmentDetails(appointment)">
+            <div class="appointment-date">{{ appointment.formattedDate }}</div>
+            <div class="appointment-details">
+              <div class="pet-name">{{ appointment.petName }}</div>
+              <div class="service-type">{{ appointment.serviceType }}</div>
+            </div>
+            <div class="appointment-status">
+              <span [class]="'status-badge ' + getStatusClass(appointment.status)">
+                {{ getStatusLabel(appointment.status) }}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="empty-list" *ngIf="pastAppointments.length === 0">
+          <mat-icon>history</mat-icon>
+          <p>Sem histórico de agendamentos</p>
+        </div>
+        
+        <div class="view-more-button" *ngIf="pastAppointments.length > 0">
+          <button mat-button color="primary" routerLink="/appointment-list">
+            Ver Histórico Completo <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

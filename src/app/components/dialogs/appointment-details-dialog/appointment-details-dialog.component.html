@@ -1,0 +1,61 @@
+<div class="appointment-details-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon class="header-icon">event_note</mat-icon>
+    Detalhes do Agendamento
+  </h2>
+  
+  <mat-dialog-content>
+    <div class="details-grid">
+      <div class="detail-card">
+        <div class="card-title">
+          <mat-icon>pets</mat-icon>
+          <span>Informações do Pet</span>
+        </div>
+        <div class="card-content">
+          <div class="detail-item">
+            <span class="detail-label">Nome</span>
+            <span class="detail-value">{{ data.appointment.petName }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="detail-card">
+        <div class="card-title">
+          <mat-icon>event</mat-icon>
+          <span>Informações do Agendamento</span>
+        </div>
+        <div class="card-content">
+          <div class="detail-item">
+            <span class="detail-label">Serviço</span>
+            <span class="detail-value">{{ data.appointment.serviceType }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Data</span>
+            <span class="detail-value">{{ data.appointment.formattedDate }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Horário</span>
+            <span class="detail-value">{{ data.appointment.time }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Status</span>
+            <span class="detail-value">
+              <span [class]="'status-badge ' + getStatusClass(data.appointment.status)">
+                {{ getStatusLabel(data.appointment.status) }}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button color="accent" *ngIf="data.appointment.status === 'scheduled'" (click)="editAppointment()">
+      <mat-icon>edit</mat-icon> Editar
+    </button>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="close()">
+      <mat-icon>close</mat-icon> Fechar
+    </button>
+  </mat-dialog-actions>
+</div>

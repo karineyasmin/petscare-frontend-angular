@@ -1,0 +1,120 @@
+<div class="breed-search-page">
+  <div class="breed-search-header">
+    <h1>Buscar Raças de Pets</h1>
+    <p>Consulta de raças disponíveis para adoção e informações gerais</p>
+  </div>
+
+  <mat-card class="breed-search-card">
+    <mat-card-content>
+      <form [formGroup]="breedSearchForm" (ngSubmit)="onSubmit()" class="breed-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Escolha a espécie</mat-label>
+          <mat-select formControlName="species">
+            <mat-option value="dog">Cachorro</mat-option>
+            <mat-option value="cat">Gato</mat-option>
+          </mat-select>
+          <mat-error *ngIf="breedSearchForm.get('species')?.hasError('required')">
+            Selecione uma espécie
+          </mat-error>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit" [disabled]="breedSearchForm.invalid || loading">
+          <mat-icon>search</mat-icon>
+          {{ loading ? 'Buscando...' : 'Buscar' }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Loading state -->
+  <div class="breed-loading-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Carregando raças...</p>
+  </div>
+
+  <!-- Error message -->
+  <div class="breed-error" *ngIf="error">
+    <mat-icon color="warn">error</mat-icon>
+    <span>{{ error }}</span>
+  </div>
+
+  <!-- Results -->
+  <div *ngIf="breedResults.length > 0 && !loading" class="breed-results-container">
+    <div class="breed-results-header">
+      <h2>{{ getSpeciesName(species) }}</h2>
+      <div class="breed-filter">
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar raças</mat-label>
+          <input matInput [(ngModel)]="filterText" (input)="filterResults()" placeholder="Nome da raça">
+          <mat-icon matPrefix>filter_list</mat-icon>
+          <button *ngIf="filterText" matSuffix mat-icon-button aria-label="Clear" (click)="filterText=''; filterResults()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- No results after filtering -->
+    <div *ngIf="filteredResults.length === 0 && filterText" class="breed-no-results">
+      <mat-icon>search_off</mat-icon>
+      <h3>Nenhuma raça encontrada</h3>
+      <p>Tente outro termo de pesquisa</p>
+    </div>
+
+    <!-- Breed grid -->
+    <div class="breed-grid">
+      <mat-card *ngFor="let breed of filteredResults" class="breed-item">
+        <mat-card-header>
+          <div mat-card-avatar class="breed-avatar">
+            <mat-icon>pets</mat-icon>
+          </div>
+          <mat-card-title>{{ breed.name }}</mat-card-title>
+          <mat-card-subtitle *ngIf="breed.breed_group">{{ breed.breed_group }}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <!-- ID destacado -->
+          <div class="breed-id">
+            ID: {{ breed.id || 'N/A' }}
+          </div>
+          
+          <div class="breed-info" *ngIf="breed.temperament">
+            <div class="breed-info-label">Temperamento:</div>
+            <div class="breed-info-value">{{ breed.temperament }}</div>
+          </div>
+          
+          <div class="breed-info" *ngIf="breed.origin">
+            <div class="breed-info-label">Origem:</div>
+            <div class="breed-info-value">{{ breed.origin }}</div>
+          </div>
+          
+          <div class="breed-info" *ngIf="breed.life_span">
+            <div class="breed-info-label">Expectativa de vida:</div>
+            <div class="breed-info-value">{{ breed.life_span }}</div>
+          </div>
+          
+          <div class="breed-info" *ngIf="breed.weight">
+            <div class="breed-info-label">Peso:</div>
+            <div class="breed-info-value">{{ breed.weight.metric || breed.weight }} kg</div>
+          </div>
+          
+          <div class="breed-info" *ngIf="breed.description">
+            <div class="breed-info-label">Descrição:</div>
+            <div class="breed-info-value">{{ breed.description }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="breed-count">
+      <span>{{ filteredResults.length }} {{ filteredResults.length === 1 ? 'raça encontrada' : 'raças encontradas' }}</span>
+    </div>
+  </div>
+
+  <!-- No results initially -->
+  <div *ngIf="!loading && !error && breedResults.length === 0 && breedSearchForm.get('species')?.dirty" class="breed-empty">
+    <mat-icon>pets</mat-icon>
+    <h3>Nenhuma raça encontrada</h3>
+    <p>Tente selecionar outra espécie ou verifique sua conexão com a internet</p>
+  </div>
+</div>

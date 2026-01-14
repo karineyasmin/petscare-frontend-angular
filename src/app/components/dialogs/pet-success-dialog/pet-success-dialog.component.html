@@ -1,0 +1,51 @@
+<div class="pet-success-dialog">
+  <div class="success-header">
+    <div class="success-icon">
+      <mat-icon>check_circle</mat-icon>
+    </div>
+    <h2 mat-dialog-title>Cadastrado com Sucesso!</h2>
+  </div>
+  
+  <mat-dialog-content>
+    <div class="pet-info">
+      <div class="pet-avatar">
+        <mat-icon *ngIf="data.pet.species === 'dog'">pets</mat-icon>
+        <mat-icon *ngIf="data.pet.species === 'cat'">pets</mat-icon>
+        <mat-icon *ngIf="data.pet.species !== 'dog' && data.pet.species !== 'cat'">pets</mat-icon>
+      </div>
+      
+      <div class="pet-details">
+        <div class="pet-name">{{ data.pet.name }}</div>
+        <div class="pet-breed">{{ data.pet.breed || data.pet.breedId }}</div>
+        <div class="pet-owner">{{ data.pet.ownerName }}</div>
+      </div>
+    </div>
+    
+    <div class="success-message">
+      O que deseja fazer agora?
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <div class="action-buttons">
+      <button mat-flat-button (click)="viewPet()">
+        <mat-icon>visibility</mat-icon>
+        Ver Detalhes
+      </button>
+      
+      <button mat-flat-button (click)="navigateToList()">
+        <mat-icon>list</mat-icon>
+        Lista de Pets
+      </button>
+      
+      <button mat-flat-button (click)="createNewPet()">
+        <mat-icon>add</mat-icon>
+        Novo Pet
+      </button>
+    </div>
+    
+    <button mat-button class="close-button" (click)="closeDialog()">
+      Fechar
+    </button>
+  </mat-dialog-actions>
+</div>

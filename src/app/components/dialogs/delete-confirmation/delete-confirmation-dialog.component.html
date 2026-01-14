@@ -1,0 +1,40 @@
+<div class="delete-confirmation-container">
+  <h2 mat-dialog-title>Confirmar Exclusão</h2>
+  
+  <mat-dialog-content>
+    <div class="warning-icon">
+      <mat-icon color="warn">warning</mat-icon>
+    </div>
+    
+    <p class="confirmation-message">
+      Tem certeza que deseja excluir o pet <strong>{{ data.pet?.name }}</strong>?
+    </p>
+    
+    <div class="pet-info">
+      <p><span class="info-label">Espécie:</span> {{ data.pet?.species }}</p>
+      <p><span class="info-label">Raça:</span> {{ data.pet?.breed }}</p>
+      <p><span class="info-label">Tutor:</span> {{ data.pet?.ownerName }}</p>
+    </div>
+    
+    <p class="warning-text">
+      Esta ação não pode ser desfeita.
+    </p>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button 
+      mat-button 
+      mat-dialog-close 
+      class="cancel-button">
+      Cancelar
+    </button>
+    
+    <button 
+      mat-raised-button 
+      color="warn" 
+      [mat-dialog-close]="true"
+      class="confirm-button">
+      Excluir
+    </button>
+  </mat-dialog-actions>
+</div>

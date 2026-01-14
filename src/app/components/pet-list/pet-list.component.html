@@ -1,0 +1,97 @@
+<div class="container">
+  <h2 class="section-title">Lista de Pets</h2>
+  
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Filtrar pets</mat-label>
+    <input matInput [(ngModel)]="filterText" (keyup)="applyFilter()" placeholder="Nome, espécie, raça ou tutor">
+    <button *ngIf="filterText" matSuffix mat-icon-button aria-label="Limpar" (click)="filterText=''; applyFilter()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+  
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Carregando pets...</p>
+  </div>
+  
+  <div class="empty-state" *ngIf="!loading && filteredPets.length === 0">
+    <mat-icon>sentiment_dissatisfied</mat-icon>
+    <h3>Nenhum pet encontrado</h3>
+    <p *ngIf="filterText">Tente outro termo para sua busca</p>
+    <p *ngIf="!filterText">Não há pets cadastrados no sistema</p>
+  </div>
+
+  <mat-card *ngIf="error" class="error-message">
+    <mat-card-content>
+      <mat-icon color="warn">error</mat-icon>
+      {{ error }}
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="table-container mat-elevation-z2" *ngIf="!loading && filteredPets.length > 0">
+    <table mat-table [dataSource]="filteredPets" class="full-width-table">
+      <!-- Nome Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.name }}</td>
+      </ng-container>
+
+      <!-- Espécie Column -->
+      <ng-container matColumnDef="species">
+        <th mat-header-cell *matHeaderCellDef>Espécie</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.species }}</td>
+      </ng-container>
+
+      <!-- Raça Column -->
+      <ng-container matColumnDef="breed">
+        <th mat-header-cell *matHeaderCellDef>Raça</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.breed }}</td>
+      </ng-container>
+
+      <!-- Idade Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef>Idade</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.age }} anos</td>
+      </ng-container>
+
+      <!-- Peso Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Peso</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.weight }} kg</td>
+      </ng-container>
+
+      <!-- Tutor Column -->
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef>Tutor</th>
+        <td mat-cell *matCellDef="let pet">{{ pet.ownerName }}</td>
+      </ng-container>
+
+            <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let pet" class="action-buttons">
+          <button mat-icon-button class="view-button" (click)="viewPetDetails(pet)" matTooltip="Ver detalhes">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button class="edit-button" (click)="editPet(pet)" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="delete-button" (click)="confirmDelete(pet)" matTooltip="Excluir">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></tr>
+    </table>
+  </div>
+  
+  <div class="back-button-container">
+    <button mat-raised-button color="primary" (click)="navigateToHome()">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar para Home
+    </button>
+  </div>
+</div>

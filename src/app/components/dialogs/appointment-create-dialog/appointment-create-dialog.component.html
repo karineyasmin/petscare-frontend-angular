@@ -1,0 +1,90 @@
+<div class="create-appointment-dialog">
+  <h2 mat-dialog-title>
+    <mat-icon class="header-icon">add_circle</mat-icon>
+    Novo Agendamento
+  </h2>
+  
+  <mat-dialog-content>
+    <form [formGroup]="appointmentForm">
+      <!-- Mensagem de erro -->
+      <mat-error *ngIf="error" class="error-message">
+        <mat-icon>error</mat-icon> {{ error }}
+      </mat-error>
+
+      <!-- Seleção do Pet -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Selecione o Pet</mat-label>
+        <mat-select formControlName="petId" (selectionChange)="onPetSelect($event.value)">
+          <mat-option *ngFor="let pet of pets" [value]="pet.id">
+            {{ pet.name }} ({{ pet.ownerName }})
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>pets</mat-icon>
+        <mat-error *ngIf="appointmentForm.get('petId')?.hasError('required')">
+          Selecione um pet
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Informações do Dono (somente exibição) -->
+      <div *ngIf="selectedPet" class="pet-info-container">
+        <div class="info-row">
+          <span class="info-label">Tutor:</span>
+          <span class="info-value">{{ selectedPet.ownerName }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ selectedPet.ownerEmail || 'Não informado' }}</span>
+        </div>
+      </div>
+
+      <!-- Tipo de Serviço -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tipo de Serviço</mat-label>
+        <mat-select formControlName="serviceType">
+          <mat-option *ngFor="let type of serviceTypes" [value]="type.value">
+            {{ type.label }}
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>medical_services</mat-icon>
+        <mat-error *ngIf="appointmentForm.get('serviceType')?.hasError('required')">
+          Selecione um tipo de serviço
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Data do Agendamento -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Data do Agendamento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" [min]="today">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+          Data é obrigatória
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Horário -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Horário</mat-label>
+        <mat-select formControlName="time">
+          <mat-option *ngFor="let time of timeSlots" [value]="time">
+            {{ time }}
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>schedule</mat-icon>
+        <mat-error *ngIf="appointmentForm.get('time')?.hasError('required')">
+          Selecione um horário
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button color="warn" mat-dialog-close [disabled]="loading">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="appointmentForm.invalid || !selectedPet || loading">
+      <mat-icon>save</mat-icon>
+      {{ loading ? 'Salvando...' : 'Agendar' }}
+    </button>
+  </mat-dialog-actions>
+</div>

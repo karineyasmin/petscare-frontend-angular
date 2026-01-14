@@ -1,0 +1,115 @@
+<div class="login-container">
+  <div class="login-card mat-elevation-z8">
+    <div class="login-header">
+      <div class="login-logo">
+        <mat-icon>pets</mat-icon>
+        <h1>Pets Care</h1>
+      </div>
+      <h2>{{ isRegistering ? 'Criar Conta' : 'Bem-vindo de volta!' }}</h2>
+      <p>{{ isRegistering ? 'Preencha os dados para criar sua conta' : 'Faça login para acessar o sistema' }}</p>
+    </div>
+    
+    <mat-card *ngIf="errorMessage" class="error-message animate__animated animate__fadeIn">
+      <mat-card-content>
+        <mat-icon color="warn">error</mat-icon>
+        {{ errorMessage }}
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card *ngIf="successMessage" class="success-message animate__animated animate__fadeIn">
+      <mat-card-content>
+        <mat-icon color="primary">check_circle</mat-icon>
+        {{ successMessage }}
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Formulário de Login -->
+    <form *ngIf="!isRegistering" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Username é obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="!hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password é obrigatório</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+          <mat-icon>login</mat-icon> Login
+        </button>
+      </div>
+      
+      <div class="register-prompt">
+        Ainda não tem uma conta? 
+        <button mat-button color="accent" type="button" (click)="toggleRegister()">Registre-se</button>
+      </div>
+    </form>
+    
+    <!-- Formulário de Registro -->
+    <form *ngIf="isRegistering" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="registerForm.get('username')?.hasError('required')">Username é obrigatório</mat-error>
+        <mat-error *ngIf="registerForm.get('username')?.hasError('minlength')">Username deve ter pelo menos 4 caracteres</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Mostrar senha'" [attr.aria-pressed]="!hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password é obrigatório</mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Password deve ter pelo menos 6 caracteres</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirmar Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword">
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Confirmação de senha é obrigatória</mat-error>
+        <mat-error *ngIf="registerForm.errors?.['passwordMismatch']">As senhas não conferem</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tipo de Usuário</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="user">Usuário</mat-option>
+          <mat-option value="admin">Administrador</mat-option>
+        </mat-select>
+        <mat-icon matPrefix>badge</mat-icon>
+        <mat-error *ngIf="registerForm.get('role')?.hasError('required')">Tipo de usuário é obrigatório</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+          <mat-icon>person_add</mat-icon> Registrar
+        </button>
+      </div>
+      
+      <div class="register-prompt">
+        Já tem uma conta?
+        <button mat-button color="accent" type="button" (click)="toggleRegister()">Faça login</button>
+      </div>
+    </form>
+    
+    <div class="pet-decoration">
+      <div class="paw-print paw-print-1"></div>
+      <div class="paw-print paw-print-2"></div>
+      <div class="paw-print paw-print-3"></div>
+      <div class="paw-print paw-print-4"></div>
+    </div>
+  </div>
+</div>

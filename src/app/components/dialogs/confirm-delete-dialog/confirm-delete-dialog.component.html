@@ -1,0 +1,60 @@
+<div class="confirm-delete-container">
+  <h2 mat-dialog-title>
+    <mat-icon class="warning-icon">warning</mat-icon>
+    Confirmar Exclusão
+  </h2>
+  
+  <mat-dialog-content>
+    <div class="warning-message">
+      <p class="primary-text">Você está prestes a excluir o pet <strong>{{ data.pet?.name }}</strong></p>
+      <p class="secondary-text">Esta ação é irreversível e todos os dados do pet serão permanentemente removidos.</p>
+    </div>
+    
+    <div class="pet-details">
+      <div class="detail-item">
+        <span class="detail-label">Espécie:</span>
+        <span class="detail-value">{{ data.pet?.species === 'dog' ? 'Cachorro' : 'Gato' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Raça:</span>
+        <span class="detail-value">{{ data.pet?.breed || 'Não informado' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Tutor:</span>
+        <span class="detail-value">{{ data.pet?.ownerName }}</span>
+      </div>
+    </div>
+    
+    <div class="confirmation-input">
+      <form [formGroup]="confirmForm">
+        <p class="instruction-text">Para confirmar a exclusão, digite o nome do pet: <strong>{{ data.pet?.name }}</strong></p>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome do pet</mat-label>
+          <input matInput formControlName="confirmation" placeholder="Digite o nome exato do pet">
+          <mat-error *ngIf="confirmForm.get('confirmation')?.hasError('required')">
+            Este campo é obrigatório
+          </mat-error>
+          <mat-error *ngIf="confirmForm.get('confirmation')?.hasError('nameNotMatching')">
+            O nome não coincide com o nome do pet
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancelClick()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button 
+      mat-raised-button 
+      color="warn" 
+      [disabled]="confirmForm.invalid"
+      (click)="onConfirmClick()" 
+      class="delete-button">
+      <mat-icon>delete</mat-icon>
+      Excluir Permanentemente
+    </button>
+  </mat-dialog-actions>
+</div>
